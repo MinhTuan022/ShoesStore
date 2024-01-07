@@ -31,11 +31,11 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "cate_Id")
-    private Category cateId;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "bra_Id")
-    private Brand braId;
+    private Brand brand;
 
     @ManyToMany
     @JoinTable(name = "product_image",joinColumns = @JoinColumn(name="pro_Id"),inverseJoinColumns = @JoinColumn(name="img_Id"))

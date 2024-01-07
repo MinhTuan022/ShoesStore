@@ -22,6 +22,7 @@ public class Image {
     private long imgSize;
 
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] imgData;
 
 }

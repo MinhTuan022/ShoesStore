@@ -16,6 +16,7 @@ public class Brand {
     private long braId;
     private String braName;
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] braImage;
 
 }
