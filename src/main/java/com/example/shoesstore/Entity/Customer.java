@@ -14,7 +14,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cusId;
 
-    @Column(unique = true)
+    @Column(name = "cus_user", unique = true)
     private String cusUser;
     private String cusPass;
     private String cusPhone;

@@ -8,9 +8,9 @@ import com.example.shoesstore.Model.Requests.UpdateProfileRequest;
 import com.example.shoesstore.Repository.CustomerRepository;
 import com.example.shoesstore.Service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setCusUser(request.getCusUser());
         customer.setCusPass(encoder.encode(request.getCusPass()));
         customer.setCusEmail(request.getCusEmail());
-        customerRepository.save(customer);
-        return customer;
+        if (isUsernameAndEmailUnique(request.getCusUser(), request.getCusEmail())) {
+            return customerRepository.save(customer);
+        } else {
+            throw new DuplicateKeyException("Username or Email already exists");
+        }
     }
 
     @Override
@@ -65,5 +68,8 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
     }
 
+    private boolean isUsernameAndEmailUnique(String userName, String email) {
+        return !customerRepository.existsByCusUserOrCusEmail(userName, email);
+    }
 
 }
