@@ -11,12 +11,14 @@ public interface ProductService {
     List<Product> getProductByCategory(long cateId);
 
     List<Product> getProductByBrand(long braId);
+    List<Product> getProductByCategoryAndBrand(long cateId, long braId);
 
     List<Product> getProductByDate();
 
     List<Product> getProductHot();
     List<Product> getProductSale();
 
+    Product getProductById(long proId);
     Product createProduct(CreateProductRequest request);
 
     Product updateProduct(Long proId, CreateProductRequest request);

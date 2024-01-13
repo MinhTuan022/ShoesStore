@@ -45,6 +45,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductByCategoryAndBrand(long cateId, long braId) {
+        List<Product> productList = productRepository.findByCategoryAndBrand(cateId, braId);
+        return productList;
+    }
+
+    @Override
     public List<Product> getProductByDate() {
         List<Product> productList = productRepository.getListByDate();
         return productList;
@@ -60,6 +66,12 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductSale() {
         List<Product> productList = productRepository.getListSale();
         return productList;
+    }
+
+    @Override
+    public Product getProductById(long proId) {
+        Product product = productRepository.findById(proId).orElseThrow(() -> new ResourceNotFoundException("Not Found Product By Id:" + proId));
+        return product;
     }
 
     @Override

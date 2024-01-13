@@ -26,6 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value ="Select * from Product where bra_Id = :id",nativeQuery = true)
     List<Product> getListProductByBrand(long id);
+
+    @Query(value ="Select * from Product where cate_Id = :cateId and bra_Id = :braId",nativeQuery = true)
+    List<Product> findByCategoryAndBrand(long cateId, long braId);
 //
 //    @Query(value = "Select * from Product where cate_Id = :id and pro_price between :min and :max",nativeQuery = true)
 //    List<Product> getListProductByPriceRange(long id,int min,int max);
