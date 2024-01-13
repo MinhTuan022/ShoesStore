@@ -42,17 +42,17 @@ public class ImageController {
             }
             try{
                 Image image = new Image();
-                image.setImgName(file.getName());
+                image.setImgName(file.getOriginalFilename());
                 image.setImgType(extension);
                 image.setImgSize(file.getSize());
                 image.setImgData(file.getBytes());
                 //create file
-                String uid = UUID.randomUUID().toString();
-                String link = UPLOAD_DIR + uid + "." + extension;
-                File serverFile = new File(link);
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(file.getBytes());
-                stream.close();
+//                String uid = UUID.randomUUID().toString();
+//                String link = UPLOAD_DIR + uid + "." + extension;
+//                File serverFile = new File(link);
+//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+//                stream.write(file.getBytes());
+//                stream.close();
 
                 imageService.save(image);
                 return ResponseEntity.ok(image);

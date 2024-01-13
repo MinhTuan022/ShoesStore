@@ -33,6 +33,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductByCategory(long cateId) {
+        List<Product> productList = productRepository.getListProductByCategory(cateId);
+        return productList;
+    }
+
+    @Override
+    public List<Product> getProductByBrand(long braId) {
+        List<Product> productList = productRepository.getListProductByBrand(braId);
+        return productList;
+    }
+
+    @Override
+    public List<Product> getProductByDate() {
+        List<Product> productList = productRepository.getListByDate();
+        return productList;
+    }
+
+    @Override
+    public List<Product> getProductHot() {
+        List<Product> productList = productRepository.getListHot();
+        return productList;
+    }
+
+    @Override
+    public List<Product> getProductSale() {
+        List<Product> productList = productRepository.getListSale();
+        return productList;
+    }
+
+    @Override
     public Product createProduct(CreateProductRequest request) {
         Product product = new Product();
         product.setProName(request.getProName());
@@ -65,21 +95,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(Long proId, CreateProductRequest request) {
         Product product = productRepository.findById(proId).orElseThrow(() -> new ResourceNotFoundException("Not Found Product With Id:" + proId));
-        product.setProName(request.getProName());
-        product.setProPrice(request.getProPrice());
-        product.setProBasisPrice(request.getProBasisPrice());
-        product.setProDate(request.getProDate());
-        product.setProHot(request.isProHot());
-        product.setProState(request.isProState());
-        product.setProDescription(request.getProDescription());
-
-        Category category = categoryRepository.findById(request.getCateId())
-                .orElseThrow(()-> new ResourceNotFoundException("Not Found Category With Id: " + request.getCateId()));
-        product.setCategory(category);
-
-        Brand brand = brandRepository.findById(request.getBraId())
-                .orElseThrow(()-> new ResourceNotFoundException("Not Found Brand With Id: " + request.getBraId()));
-        product.setBrand(brand);
+//        product.setProName(request.getProName());
+//        product.setProPrice(request.getProPrice());
+//        product.setProBasisPrice(request.getProBasisPrice());
+//        product.setProDate(request.getProDate());
+//        product.setProHot(request.isProHot());
+//        product.setProState(request.isProState());
+//        product.setProDescription(request.getProDescription());
+//
+//        Category category = categoryRepository.findById(request.getCateId())
+//                .orElseThrow(()-> new ResourceNotFoundException("Not Found Category With Id: " + request.getCateId()));
+//        product.setCategory(category);
+//
+//        Brand brand = brandRepository.findById(request.getBraId())
+//                .orElseThrow(()-> new ResourceNotFoundException("Not Found Brand With Id: " + request.getBraId()));
+//        product.setBrand(brand);
 
         Set<Image> images = new HashSet<>();
         for (long imgId: request.getImgId()){

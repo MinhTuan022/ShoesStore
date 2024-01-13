@@ -4,6 +4,7 @@ import com.example.shoesstore.Entity.Customer;
 import com.example.shoesstore.Exception.ResourceNotFoundException;
 import com.example.shoesstore.Model.Requests.ChangePasswordReqest;
 import com.example.shoesstore.Model.Requests.CreateCustomerRequest;
+import com.example.shoesstore.Model.Requests.LoginRequest;
 import com.example.shoesstore.Model.Requests.UpdateProfileRequest;
 import com.example.shoesstore.Repository.CustomerRepository;
 import com.example.shoesstore.Service.CustomerService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -32,6 +34,25 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findByCusUser(username).orElseThrow(()-> new ResourceNotFoundException("Not Found Customer With Username:" + username));
         return customer;
     }
+
+    @Override
+    public Customer loginCustomer(LoginRequest request) {
+        Customer customer = customerRepository.findCustomerByCusUser(request.getCusUser());
+        return  customer;
+    }
+
+//    @Override
+//    public boolean loginCustomer(LoginRequest request) {
+//        Optional<Customer> customerOptional = customerRepository.findByCusUser(request.getCusUser());
+//        if(customerOptional.isPresent()){
+//            Customer customer = customerOptional.get();
+//
+//            return encoder.matches(request.getCusPass(), customer.getCusPass());
+//
+//        }
+//        return false;
+//    }
+
 
 
     @Override

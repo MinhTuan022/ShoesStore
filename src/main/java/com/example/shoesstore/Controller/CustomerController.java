@@ -3,10 +3,17 @@ package com.example.shoesstore.Controller;
 import com.example.shoesstore.Entity.Customer;
 import com.example.shoesstore.Model.Requests.ChangePasswordReqest;
 import com.example.shoesstore.Model.Requests.CreateCustomerRequest;
+import com.example.shoesstore.Model.Requests.LoginRequest;
 import com.example.shoesstore.Model.Requests.UpdateProfileRequest;
 import com.example.shoesstore.Service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +23,8 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
     CustomerService customerService;
+
+    AuthenticationManager authenticationManager;
 
     @GetMapping
     ResponseEntity<List<Customer>> getAllCustomer(){
@@ -35,9 +44,27 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/login")
-    ResponseEntity<Customer> getCustomer(@RequestParam("username") String username){
-        Customer customer = customerService.getCustomer(username);
+//    @GetMapping("/login")
+//    ResponseEntity<Customer> getCustomer(@RequestParam("username")  String username){
+//        Customer customer = customerService.getCustomer(username);
+//        return ResponseEntity.ok(customer);
+//    }
+
+    @PostMapping("/login")
+    ResponseEntity<Customer> getCustomer(@RequestBody LoginRequest request){
+//        Authentication authentication =authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+//                request.getCusUser(), request.getCusPass()
+//        ));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+////        boolean isAuthenticated = customerService.loginCustomer(request);
+////        if (isAuthenticated) {
+////            return ResponseEntity.ok("Login successful");
+////        } else {
+////            return ResponseEntity.ok("Login failed");
+////        }
+//        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
+        Customer customer =customerService.loginCustomer(request);
         return ResponseEntity.ok(customer);
     }
 

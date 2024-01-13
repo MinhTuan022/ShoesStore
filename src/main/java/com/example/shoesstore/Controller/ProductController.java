@@ -21,6 +21,31 @@ public class ProductController {
         List<Product> productList = productService.getAllProduct();
         return ResponseEntity.ok(productList);
     }
+    @GetMapping("/{cateId}/category")
+    ResponseEntity<List<Product>> getProductByCategory(@PathVariable long cateId){
+        List<Product> productList = productService.getProductByCategory(cateId);
+        return ResponseEntity.ok(productList);
+    }
+    @GetMapping("/{braId}/brand")
+    ResponseEntity<List<Product>> getProductByBrand(@PathVariable long braId){
+        List<Product> productList = productService.getProductByBrand(braId);
+        return ResponseEntity.ok(productList);
+    }
+    @GetMapping("/date")
+    ResponseEntity<List<Product>> getProductByDate(){
+        List<Product> productList = productService.getProductByDate();
+        return ResponseEntity.ok(productList);
+    }
+    @GetMapping("/hot")
+    ResponseEntity<List<Product>> getProductHot(){
+        List<Product> productList = productService.getProductHot();
+        return ResponseEntity.ok(productList);
+    }
+    @GetMapping("/sale")
+    ResponseEntity<List<Product>> getProductSale(){
+        List<Product> productList = productService.getProductSale();
+        return ResponseEntity.ok(productList);
+    }
 
     @PostMapping("/create")
     ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest request){
