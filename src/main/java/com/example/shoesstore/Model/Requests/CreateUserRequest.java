@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCustomerRequest {
+public class CreateUserRequest {
     @NotNull(message="Username rỗng")
     @NotEmpty(message="Username rỗng")
     @Size(min=5,max=30,message="Username từ 5-30 ký tự")

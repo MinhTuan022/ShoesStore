@@ -26,11 +26,11 @@ public class BrandController {
 
     public ResponseEntity<List<Brand>> getAllBrands() {
         List<Brand> brands = brandService.getAllBrand();
-        if (!brands.isEmpty()) {
+//        if (!brands.isEmpty()) {
             return ResponseEntity.ok(brands);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
-        }
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
+//        }
     }
     //    @PostMapping
 //    public Brand saveBrand(@RequestBody Brand brand) {

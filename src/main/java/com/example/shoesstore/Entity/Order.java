@@ -38,7 +38,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "cus_Id")
-    private Customer customer;
+    private User customer;
 
     @OneToMany(mappedBy = "order")
     @JsonBackReference

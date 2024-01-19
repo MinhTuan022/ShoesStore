@@ -1,6 +1,8 @@
 package com.example.shoesstore.Repository;
 
 import com.example.shoesstore.Entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -22,13 +24,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    List<Product> findRelatedProduct(long id);
 //
     @Query(value ="Select * from Product where cate_Id = :id",nativeQuery = true)
-    List<Product> getListProductByCategory(long id);
+    Page<Product> getListProductByCategory(long id, Pageable pageable);
 
     @Query(value ="Select * from Product where bra_Id = :id",nativeQuery = true)
-    List<Product> getListProductByBrand(long id);
+    Page<Product> getListProductByBrand(long id, Pageable pageable);
 
     @Query(value ="Select * from Product where cate_Id = :cateId and bra_Id = :braId",nativeQuery = true)
-    List<Product> findByCategoryAndBrand(long cateId, long braId);
+    Page<Product> findByCategoryAndBrand(long cateId, long braId, Pageable pageable);
 //
 //    @Query(value = "Select * from Product where cate_Id = :id and pro_price between :min and :max",nativeQuery = true)
 //    List<Product> getListProductByPriceRange(long id,int min,int max);

@@ -2,16 +2,18 @@ package com.example.shoesstore.Service;
 
 import com.example.shoesstore.Entity.Product;
 import com.example.shoesstore.Model.Requests.CreateProductRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
 public interface ProductService {
     List<Product> getAllProduct();
-    List<Product> getProductByCategory(long cateId);
+    Page<Product> getAllProductByPage(int page, int size);
+    Page<Product> getProductByCategory(long cateId, int page, int size);
 
-    List<Product> getProductByBrand(long braId);
-    List<Product> getProductByCategoryAndBrand(long cateId, long braId);
+    Page<Product> getProductByBrand(long braId, int page, int size);
+    Page<Product> getProductByCategoryAndBrand(long cateId, long braId, int page, int size);
 
     List<Product> getProductByDate();
 
