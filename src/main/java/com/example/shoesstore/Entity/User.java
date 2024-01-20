@@ -20,14 +20,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long uId;
 
-    @Column(name = "username", unique = true)
-    private String username;
-    private String password;
-
-    private Role role;
 
     @Column(unique = true)
-    private String uEmail;
+    private String email;
+    private String password;
+
+    private String uName;
+
+    private Role role;
 
     private String uPhone;
 
@@ -37,6 +37,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override

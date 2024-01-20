@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -19,11 +20,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ordId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ordDate;
+//    @Temporal(TemporalType.TIMESTAMP)
+    private String ordDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ordShipDate;
+//    @Temporal(TemporalType.TIMESTAMP)
+    private String ordShipDate;
 
     @Column(columnDefinition = "TEXT")
     private String ordAddress;
@@ -37,8 +38,8 @@ public class Order {
     private PaymentMethod paymentMethod;
 
     @ManyToOne
-    @JoinColumn(name = "cus_Id")
-    private User customer;
+    @JoinColumn(name = "u_Id")
+    private User user;
 
     @OneToMany(mappedBy = "order")
     @JsonBackReference

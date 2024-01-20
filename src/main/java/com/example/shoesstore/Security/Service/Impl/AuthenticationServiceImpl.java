@@ -28,8 +28,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User signup(SignUpRequest signUpRequest){
         User user = new User();
 
-        user.setUEmail(signUpRequest.getUEmail());
-        user.setUsername(signUpRequest.getUsername());
+        user.setEmail(signUpRequest.getEmail());
+        user.setUName(signUpRequest.getUName());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setUPhone(signUpRequest.getUPhone());
@@ -39,9 +39,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public JwtAuthenticationResponse signin(SignInRequest signInRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getUsername(),
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),
                 signInRequest.getPassword()));
-        var user = userRepository.findByUsername(signInRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+        var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
 
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
@@ -55,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
         String username = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByEmail(username).orElseThrow();
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)){
             var jwt = jwtService.generateToken(user);
 

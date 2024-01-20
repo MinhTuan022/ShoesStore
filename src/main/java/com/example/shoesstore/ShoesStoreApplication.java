@@ -23,8 +23,8 @@ public class ShoesStoreApplication implements CommandLineRunner {
         if(adminAccount == null){
             User user = new User();
 
-            user.setUsername("admin");
-            user.setUEmail("admin@gmail.com");
+            user.setUName("Admin");
+            user.setEmail("admin@gmail.com");
             user.setRole(Role.ADMIN);
             user.setUAddress("HY");
             user.setUPhone("0123456789");

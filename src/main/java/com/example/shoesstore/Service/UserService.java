@@ -1,5 +1,6 @@
 package com.example.shoesstore.Service;
 
+import com.example.shoesstore.Entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 //import com.example.shoesstore.Entity.User;
@@ -14,7 +15,7 @@ public interface UserService {
     UserDetailsService userDetailsService();
 //    List<User> getAllCustomer();
 //
-//    User getCustomer(String username);
+    User getUser(String username);
 //
 ////    boolean loginCustomer(LoginRequest request);
 //

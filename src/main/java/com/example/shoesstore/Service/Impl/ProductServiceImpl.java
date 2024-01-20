@@ -1,15 +1,10 @@
 package com.example.shoesstore.Service.Impl;
 
-import com.example.shoesstore.Entity.Brand;
-import com.example.shoesstore.Entity.Category;
-import com.example.shoesstore.Entity.Image;
-import com.example.shoesstore.Entity.Product;
+import com.example.shoesstore.Entity.*;
 import com.example.shoesstore.Exception.ResourceNotFoundException;
+
 import com.example.shoesstore.Model.Requests.CreateProductRequest;
-import com.example.shoesstore.Repository.BrandRepository;
-import com.example.shoesstore.Repository.CategoryRepository;
-import com.example.shoesstore.Repository.ImageRepository;
-import com.example.shoesstore.Repository.ProductRepository;
+import com.example.shoesstore.Repository.*;
 import com.example.shoesstore.Service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
     private BrandRepository brandRepository;
     private ImageRepository imageRepository;
+    private SizeRepository sizeRepository;
     @Override
     public List<Product> getAllProduct() {
         List<Product> productList = productRepository.findAll();
@@ -125,6 +121,13 @@ public class ProductServiceImpl implements ProductService {
             images.add(image);
         }
         product.setImages(images);
+
+        Set<Size> sizes = new HashSet<>();
+        for (long sId: request.getSid()){
+            Size size = sizeRepository.findById(sId).orElseThrow(() -> new ResourceNotFoundException("Not Found Image With Id: " + sId));
+            sizes.add(size);
+        }
+        product.setSizes(sizes);
 
         productRepository.save(product);
         return product;

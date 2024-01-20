@@ -19,8 +19,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long proId;
     private String proName;
-    private Double proPrice;
-    private Double proBasisPrice;
+    private long proPrice;
+    private long proBasisPrice;
     private Date proDate;
     private boolean proHot;
     private boolean proState;
@@ -40,4 +40,8 @@ public class Product {
     @ManyToMany
     @JoinTable(name = "product_image",joinColumns = @JoinColumn(name="pro_Id"),inverseJoinColumns = @JoinColumn(name="img_Id"))
     private Set<Image> images = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "product_size",joinColumns = @JoinColumn(name="pro_Id"),inverseJoinColumns = @JoinColumn(name="s_Id"))
+    private Set<Size> sizes = new HashSet<>();
 }

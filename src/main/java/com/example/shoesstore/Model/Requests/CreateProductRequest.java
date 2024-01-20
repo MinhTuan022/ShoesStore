@@ -7,12 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 import java.util.Date;
 import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class CreateProductRequest {
     @NotNull(message = "Tên sản phẩm rỗng")
     @NotEmpty(message = "Tên Sản Phẩm Rỗng")
@@ -22,12 +23,12 @@ public class CreateProductRequest {
     @NotNull(message = "Giá tiền rỗng")
     @NotEmpty(message = "Giá tiền rỗng")
     @Size(min=0,message="Giá tiền sản phẩm lớn hơn 0")
-    private Double proPrice;
+    private long proPrice;
 
     @NotNull(message = "Giá tiền rỗng")
     @NotEmpty(message = "Giá tiền rỗng")
     @Size(min=0,message="Giá tiền sản phẩm lớn hơn 0")
-    private Double proBasisPrice;
+    private long proBasisPrice;
 
     private Date proDate;
     private boolean proHot;
@@ -53,5 +54,8 @@ public class CreateProductRequest {
 
     @NotNull(message="Ảnh sản phẩm rỗng")
     private Set<Long> imgId;
+
+    @NotNull(message="Size sản phẩm rỗng")
+    private Set<Long> sid;
 
 }
