@@ -136,21 +136,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(Long proId, CreateProductRequest request) {
         Product product = productRepository.findById(proId).orElseThrow(() -> new ResourceNotFoundException("Not Found Product With Id:" + proId));
-//        product.setProName(request.getProName());
-//        product.setProPrice(request.getProPrice());
-//        product.setProBasisPrice(request.getProBasisPrice());
-//        product.setProDate(request.getProDate());
-//        product.setProHot(request.isProHot());
-//        product.setProState(request.isProState());
-//        product.setProDescription(request.getProDescription());
-//
-//        Category category = categoryRepository.findById(request.getCateId())
-//                .orElseThrow(()-> new ResourceNotFoundException("Not Found Category With Id: " + request.getCateId()));
-//        product.setCategory(category);
-//
-//        Brand brand = brandRepository.findById(request.getBraId())
-//                .orElseThrow(()-> new ResourceNotFoundException("Not Found Brand With Id: " + request.getBraId()));
-//        product.setBrand(brand);
+        product.setProName(request.getProName());
+        product.setProPrice(request.getProPrice());
+        product.setProBasisPrice(request.getProBasisPrice());
+        product.setProDate(request.getProDate());
+        product.setProHot(request.isProHot());
+        product.setProState(request.isProState());
+        product.setProDescription(request.getProDescription());
+
+        Category category = categoryRepository.findById(request.getCateId())
+                .orElseThrow(()-> new ResourceNotFoundException("Not Found Category With Id: " + request.getCateId()));
+        product.setCategory(category);
+
+        Brand brand = brandRepository.findById(request.getBraId())
+                .orElseThrow(()-> new ResourceNotFoundException("Not Found Brand With Id: " + request.getBraId()));
+        product.setBrand(brand);
 
         Set<Image> images = new HashSet<>();
         for (long imgId: request.getImgId()){
@@ -158,8 +158,21 @@ public class ProductServiceImpl implements ProductService {
             images.add(image);
         }
         product.setImages(images);
+
+        Set<Size> sizes = new HashSet<>();
+        for (long sId: request.getSid()){
+            Size size = sizeRepository.findById(sId).orElseThrow(() -> new ResourceNotFoundException("Not Found Image With Id: " + sId));
+            sizes.add(size);
+        }
+        product.setSizes(sizes);
         productRepository.save(product);
         return product;
+    }
+
+    @Override
+    public List<Product> searchProduct(String keyword) {
+        List<Product> productList = productRepository.searchProduct(keyword);
+        return productList;
     }
 
     @Override

@@ -105,6 +105,11 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @GetMapping("/search")
+    ResponseEntity<List<Product>> searchProduct(@RequestParam String keyword){
+        List<Product> productList = productService.searchProduct(keyword);
+        return ResponseEntity.ok(productList);
+    }
     @DeleteMapping("/delete/{proId}")
     ResponseEntity<String> deleteProduct(@PathVariable Long proId){
         productService.deleteProduce(proId);

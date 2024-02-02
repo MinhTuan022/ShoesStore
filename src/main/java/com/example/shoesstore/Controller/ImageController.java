@@ -63,6 +63,11 @@ public class ImageController {
         }
         throw new BadRequestException("File không hợp lệ");
     }
+    @PutMapping("/update/{imgId}")
+    ResponseEntity<Image> updateImage(@PathVariable Long imgId, @RequestParam("file") MultipartFile file) throws BadRequestException {
+        Image image =imageService.updateImage(imgId, file);
+        return ResponseEntity.ok(image);
+    }
 
     @DeleteMapping("/delete/{imgId}")
     ResponseEntity<String> deleteImage(@PathVariable Long imgId){

@@ -18,28 +18,28 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/brands")
-//@PreAuthorize("permitAll")
 public class BrandController {
     private BrandService brandService;
 
     @GetMapping
-
     public ResponseEntity<List<Brand>> getAllBrands() {
         List<Brand> brands = brandService.getAllBrand();
-//        if (!brands.isEmpty()) {
-            return ResponseEntity.ok(brands);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
-//        }
+        return ResponseEntity.ok(brands);
+
     }
-    //    @PostMapping
-//    public Brand saveBrand(@RequestBody Brand brand) {
-//        return brandService.saveBrand(brand);
-//    }
-    @PostMapping("/upload-img/{braId}")
-    public ResponseEntity<String> uploadBrandImage(@PathVariable Long braId, @RequestParam("file") MultipartFile file) throws IOException {
+
+    @GetMapping("/{braId}")
+    public ResponseEntity<Brand> getBrand(@PathVariable Long braId) {
+        Brand brand = brandService.getBrandById(braId);
+        return ResponseEntity.ok(brand);
+
+    }
+
+    @PutMapping("/update/{braId}")
+    public ResponseEntity<String> uploadBrandImage(@PathVariable Long braId, @RequestParam("file") MultipartFile file, @RequestParam("braName") String braName) throws IOException {
         Brand brand = brandService.getBrandById(braId);
         if (brand != null && !file.isEmpty()) {
+            brand.setBraName(braName);
             brand.setBraImage(file.getBytes());
             brandService.saveBrand(brand);
             return ResponseEntity.ok("Image uploaded successfully for brand with ID: " + braId);
@@ -64,6 +64,12 @@ public class BrandController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
+
+    @DeleteMapping("/delete/{braId}")
+    public ResponseEntity<String> deleteBrand(@PathVariable Long braId){
+        brandService.deleteBrandById(braId);
+        return ResponseEntity.ok("Xóa Brand Thành Công");
     }
 
 }

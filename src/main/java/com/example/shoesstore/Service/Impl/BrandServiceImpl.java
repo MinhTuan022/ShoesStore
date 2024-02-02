@@ -32,13 +32,6 @@ public class BrandServiceImpl implements BrandService {
         return brand;
     }
 
-//    @Override
-//    public Brand createBrand(CreateBrandRequest request, MultipartFile file) throws IOException {
-//        Brand brand = new Brand();
-//        brand.setBraName(request.getBraName());
-//        brand.setBraImage(file.getBytes());
-//        return brand;
-//    }
 
     @Override
     public Brand saveBrand(Brand brand) {

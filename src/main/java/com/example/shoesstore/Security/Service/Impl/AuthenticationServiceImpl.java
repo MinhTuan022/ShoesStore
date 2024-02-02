@@ -2,20 +2,20 @@ package com.example.shoesstore.Security.Service.Impl;
 
 import com.example.shoesstore.Entity.Role;
 import com.example.shoesstore.Entity.User;
-import com.example.shoesstore.Model.Requests.JwtAuthenticationResponse;
-import com.example.shoesstore.Model.Requests.RefreshTokenRequest;
-import com.example.shoesstore.Model.Requests.SignInRequest;
-import com.example.shoesstore.Model.Requests.SignUpRequest;
+import com.example.shoesstore.Exception.ResourceNotFoundException;
+import com.example.shoesstore.Model.Requests.*;
 import com.example.shoesstore.Repository.UserRepository;
 import com.example.shoesstore.Security.Service.AuthenticationService;
 import com.example.shoesstore.Security.Service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +25,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+
+
     public User signup(SignUpRequest signUpRequest){
         User user = new User();
 
@@ -66,5 +68,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return jwtAuthenticationResponse;
         }
         return null;
+    }
+
+    @Override
+    public void changePassword(String email, ChangePasswordRequest passwordRequest) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("Not Found User With Username:" + email));
+        if (!passwordEncoder.matches(passwordRequest.getOldPass(), user.getPassword())) {
+            throw new IllegalArgumentException("Invalid old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordRequest.getNewPass()));
+
+        userRepository.save(user);
     }
 }

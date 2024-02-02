@@ -37,7 +37,7 @@ public class Product {
     @JoinColumn(name = "bra_Id")
     private Brand brand;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "product_image",joinColumns = @JoinColumn(name="pro_Id"),inverseJoinColumns = @JoinColumn(name="img_Id"))
     private Set<Image> images = new HashSet<>();
 

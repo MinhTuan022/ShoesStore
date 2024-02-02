@@ -1,17 +1,11 @@
 package com.example.shoesstore.Controller;
 
 import com.example.shoesstore.Entity.User;
-import com.example.shoesstore.Model.Requests.JwtAuthenticationResponse;
-import com.example.shoesstore.Model.Requests.RefreshTokenRequest;
-import com.example.shoesstore.Model.Requests.SignInRequest;
-import com.example.shoesstore.Model.Requests.SignUpRequest;
+import com.example.shoesstore.Model.Requests.*;
 import com.example.shoesstore.Security.Service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -32,6 +26,12 @@ public class AuthenticationController {
     @PostMapping("/refresh")
     public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest){
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
+    }
+
+    @PutMapping("/rePassword")
+    ResponseEntity<String> changePassword(@RequestParam String email, @RequestBody ChangePasswordRequest passwordRequest){
+        authenticationService.changePassword(email, passwordRequest);
+        return ResponseEntity.ok("Cập nhật pass thành công");
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.shoesstore.Model.Requests;
 
+import com.example.shoesstore.Entity.Role;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateProfileRequest {
-    private String cusUser;
-    private String cusPass;
-    private String cusPhone;
-    private String cusAddress;
-    private String cusEmail;
+    private String email;
+    private String uName;
+    private String uPhone;
+    private String uAddress;
 }
