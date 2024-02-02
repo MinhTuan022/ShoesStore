@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChangePasswordReqest {
-    @NotNull(message="Username rỗng")
-    @NotEmpty(message="Username rỗng")
-    @Size(min=5,max=30,message="Username từ 5-30 ký tự")
-    private String cusUser;
+//    @NotNull(message="Username rỗng")
+//    @NotEmpty(message="Username rỗng")
+//    @Size(min=5,max=30,message="Username từ 5-30 ký tự")
+//    private String cusUser;
 
     @NotNull(message="Mật khẩu rỗng")
     @NotEmpty(message="Mật khẩu rỗng")
